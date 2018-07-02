@@ -5,7 +5,8 @@ class App extends Component {
   state = {
     username: '',
     password: '',
-    user: localStorage.getItem('monstermash-id'),
+    token: localStorage.getItem('monstermash-id'),
+    user: {},
   }
 
   changeUsername = e => {
@@ -23,32 +24,44 @@ class App extends Component {
       headers: {"Content-type": "application/json"}
     })
     .then(res=> {
+      if (res.status === 401 || res.status === 404) return console.log('auth failed')
       return res.json()
     })
     .then(result => {
-      this.setState({ user: result.id })
-      localStorage.setItem('monstermash-id', result.id)
+      this.setState({ token: result.token })
+      localStorage.setItem('monstermash-id', result.token)
+      return fetch(`http://localhost:3000/api/user`, {
+        headers: {"Authorisation": `Bearer ${result.token}`}
+      })
+    })
+    .then(res => {
+      return res.json();
+    })
+    .then(user => {
+      this.setState({ user })
     })
     .catch(err => console.log(err))
   };
 
   componentDidMount () {
-    const { localUser } = this.state;
-    if (localUser) {
-      fetch(`http://localhost:3000/api/user/${localUser}`)
+    if (this.state.token) {
+      console.log('mount triggered')
+      fetch(`http://localhost:3000/api/user`, {
+        headers: {"Authorisation": `Bearer ${this.state.token}`}
+      })
       .then(res => {
-        return res.json();
+      return res.json();
       })
       .then(user => {
-        this.setState({ user })
+      this.setState({ user })
       })
       .catch(err => console.log(err))
-    };
-  };
+    }
+  }
 
   render() {
-    const { user } = this.state
-    return !user ? (
+    const { token, user } = this.state
+    return !token ? (
       <div className="App">
         <div className="field">
           <label className="label">Username</label>
@@ -74,7 +87,7 @@ class App extends Component {
         </div>
       </div>
     ) : (
-      <div>{user}</div>
+      <div>{user.username}</div>
     )
   }
 }
