@@ -5,7 +5,7 @@ class App extends Component {
   state = {
     username: '',
     password: '',
-    user: '',
+    user: localStorage.getItem('monstermash-id'),
   }
 
   changeUsername = e => {
@@ -27,13 +27,13 @@ class App extends Component {
     })
     .then(result => {
       this.setState({ user: result.id })
-      localStorage.setItem('monstermashid', result.id)
+      localStorage.setItem('monstermash-id', result.id)
     })
     .catch(err => console.log(err))
   };
 
   componentDidMount () {
-    const localUser = localStorage.getItem('monstermashid')
+    const { localUser } = this.state;
     if (localUser) {
       fetch(`http://localhost:3000/api/user/${localUser}`)
       .then(res => {
@@ -48,9 +48,7 @@ class App extends Component {
 
   render() {
     const { user } = this.state
-    const localUser = localStorage.getItem('monstermashid')
-
-    return !user.length ? localUser ? <div>{localUser}</div> : (
+    return !user ? (
       <div className="App">
         <div className="field">
           <label className="label">Username</label>
@@ -76,7 +74,7 @@ class App extends Component {
         </div>
       </div>
     ) : (
-      <div>{user.username}</div>
+      <div>{user}</div>
     )
   }
 }
