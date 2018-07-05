@@ -9,16 +9,16 @@ class Nav extends Component {
       <nav className="nav">
         <img className="nav-logo" src={require('../assets/logo.png')} alt="logo"/>
         <div className="nav-item">
-          <Link to={'/'}><a className="button nav-button">Gallery</a></Link>
+          <Link className="button nav-button" to={'/'}>Gallery</Link>
         </div>
         <div className="nav-close-logo-left nav-item">
-          <Link to={'/monstermash/new'}><a className="button nav-button">New Monster Mash!</a></Link>
+          <Link className="button nav-button" to={'/monstermash/new'}>New Monster Mash!</Link>
         </div>
         <div className="nav-close-logo-right nav-item">
-          <Link to={'/monstermash/contine'}><a className="button nav-button">Continue Monster Mash!</a></Link>
+          <Link className="button nav-button" to={'/monstermash/contine'}>Continue Monster Mash!</Link>
         </div>
         <div className="nav-item">
-          <Link to={'/logout'}><a className="button nav-button">Logout</a></Link>
+          <Link className="button nav-button" to={'/logout'}>Logout</Link>
         </div>
       </nav>
     )

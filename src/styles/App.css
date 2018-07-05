@@ -6,3 +6,11 @@
 .app-content {
   padding-top: 120px;
 }
+
+.app-login {
+  width: 40%;
+}
+
+.app-login-button {
+  color: #46aa25;
+}

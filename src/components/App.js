@@ -79,7 +79,7 @@ class App extends Component {
         <div className="app">
           <Nav />
           {!token ? 
-            <div className="app-content container">
+            <div className="app-content container app-login">
               <div className="field">
                 <label className="label">Username</label>
                 <div className="control">
@@ -94,9 +94,9 @@ class App extends Component {
                 </div>
               </div>
 
-              <div className="field is-grouped">
+              <div className="field is-grouped is-grouped-centered">
                 <div className="control">
-                  <button onClick={this.userSignIn} className="button is-link">Submit</button>
+                  <button onClick={this.userSignIn} className="button nav-button">Submit</button>
                 </div>
                 <div className="control">
                   <button className="button is-text">Cancel</button>
