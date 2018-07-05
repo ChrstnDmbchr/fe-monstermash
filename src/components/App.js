@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import '../styles/App.css';
 
-import Nav from "./Nav"
-import Logout from "./Logout"
-import Login from "./Login"
-import Canvas from "./Canvas"
+import Nav from "./Nav";
+import Logout from "./Logout";
+import Login from "./Login";
+import Canvas from "./Canvas";
 
 class App extends Component {
   state = {
@@ -13,7 +13,7 @@ class App extends Component {
     password: '',
     token: localStorage.getItem('monstermash-id'),
     user: {},
-  }
+  };
 
   render() {
     
@@ -30,8 +30,8 @@ class App extends Component {
             </div>
         </div>
       </BrowserRouter>
-      )
-  }
-}
+    )
+  };
+};
 
 export default App;

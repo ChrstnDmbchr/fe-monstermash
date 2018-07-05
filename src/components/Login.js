@@ -41,15 +41,7 @@ class Logout extends Component {
         password: ''
       });
       localStorage.setItem('monstermash-id', result.token);
-      return fetch(`http://localhost:3000/api/user`, {
-        headers: {"Authorisation": `Bearer ${result.token}`}
-      })
-    })
-    .then(res => {
-      return res.json();
-    })
-    .then(user => {
-      this.setState({ user });
+      this.props.history.push('/')
     })
     .catch(err => console.log(err));
   };
@@ -89,8 +81,8 @@ class Logout extends Component {
         </div>
       </div>
     )
-  }
-}
+  };
+};
 
 export default Logout;
 
