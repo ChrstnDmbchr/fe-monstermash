@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import "./Canvas.css"
+import "../styles/Canvas.css"
 
-import monsterPart from "../lib/monsterPart"
+// import monsterPart from "../lib/monsterPart"
 
 class Canvas extends Component {
   state = {
     radius: 1,
     dragging: false,
-    color: "black"
+    color: "black",
+    token: localStorage.getItem('monstermash-id'),
   };
 
   setRadius = (e) => {
@@ -79,6 +80,10 @@ class Canvas extends Component {
   };
 
   componentDidMount () {
+    if (!this.state.token) {
+      this.props.history.push('/login')
+    };
+    
     const canvas = this.refs.canvas;
     const context = canvas.getContext('2d');
 
