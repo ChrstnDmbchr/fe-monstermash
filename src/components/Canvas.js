@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "../styles/Canvas.css"
 
-// import monsterPart from "../lib/monsterPart"
+import monsterPart from "../lib/monsterPart"
 
 class Canvas extends Component {
   state = {
@@ -93,7 +93,7 @@ class Canvas extends Component {
     canvas.addEventListener('mousemove', this.draw); 
 
     // invoke function with the dataURL from db to load canvas with placeholder
-    // this.loadCanvas(dataURL);
+    this.loadCanvas(monsterPart.body);
   };
 
   render() {
