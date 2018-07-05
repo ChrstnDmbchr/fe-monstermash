@@ -8,26 +8,18 @@ import Login from "./Login";
 import Canvas from "./Canvas";
 
 class App extends Component {
-  state = {
-    username: '',
-    password: '',
-    token: localStorage.getItem('monstermash-id'),
-    user: {},
-  };
-
   render() {
-    
     return (
       <BrowserRouter>
         <div className="app">
           <Nav />
             <div className="app-content container">
-              <Switch>
-                <Route path="/login" component={Login} />
-                <Route path="/logout" component={Logout} />
-                <Route path="/monstermash/:stage" component={Canvas} />
-              </Switch>
-            </div>
+            <Switch>
+              <Route path="/login" component={Login} />
+              <Route path="/logout" component={Logout} />
+              <Route path="/monstermash/:stage" component={Canvas} />
+            </Switch>
+          </div>
         </div>
       </BrowserRouter>
     )
