@@ -24,12 +24,22 @@ class App extends Component {
       headers: {"Content-type": "application/json"}
     })
     .then(res=> {
-      if (res.status === 401 || res.status === 404) return console.log('auth failed')
-      return res.json()
+      if (res.status === 401 || res.status === 404) {
+        this.setState({ 
+          username: '',
+          password: ''
+        });
+        return console.log('auth failed');
+      }
+      return res.json();
     })
     .then(result => {
-      this.setState({ token: result.token })
-      localStorage.setItem('monstermash-id', result.token)
+      this.setState({ 
+        token: result.token,
+        username: '',
+        password: ''
+      });
+      localStorage.setItem('monstermash-id', result.token);
       return fetch(`http://localhost:3000/api/user`, {
         headers: {"Authorisation": `Bearer ${result.token}`}
       })
@@ -38,9 +48,9 @@ class App extends Component {
       return res.json();
     })
     .then(user => {
-      this.setState({ user })
+      this.setState({ user });
     })
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
   };
 
   componentDidMount () {
@@ -50,30 +60,30 @@ class App extends Component {
         headers: {"Authorisation": `Bearer ${this.state.token}`}
       })
       .then(res => {
-      return res.json();
+        return res.json();
       })
       .then(user => {
-      this.setState({ user })
+        this.setState({ user });
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
     }
   }
 
   render() {
-    const { token, user } = this.state
+    const { token, user, username, password } = this.state
     return !token ? (
       <div className="App">
         <div className="field">
           <label className="label">Username</label>
           <div className="control">
-            <input onChange={this.changeUsername} className="input" type="text" placeholder="Text input"/>
+            <input onChange={this.changeUsername} className="input" type="text" placeholder="Text input" value={username}/>
           </div>
         </div>
 
         <div className="field">
           <label className="label">Password</label>
           <div className="control">
-            <input onChange={this.changePassword} className="input" type="password" placeholder="Text input"/>
+            <input onChange={this.changePassword} className="input" type="password" placeholder="Text input" value={password}/>
           </div>
         </div>
 
