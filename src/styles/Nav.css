@@ -1,0 +1,40 @@
+.nav {
+  height: 60px;
+  width: 100vw;
+  box-shadow: -4px 1px 39px -6px rgba(0,0,0,0.63);
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  text-align: center;
+  position: fixed;
+  z-index: 1;
+  background-color: #46aa25;
+}
+
+.nav-close-logo-left {
+  text-align: left;
+}
+
+.nav-close-logo-right {
+  text-align: right;
+}
+
+.nav-button {
+  background-color: #46aa25;
+  border: none;
+  height: 100%;
+  color: white;
+}
+
+.nav-item:hover {
+  color: black;
+}
+
+.button:hover {
+  border: none;
+}
+
+.nav-logo {
+  position: absolute;
+  z-index: 1;
+  left: 42%;
+}

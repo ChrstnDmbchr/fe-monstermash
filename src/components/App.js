@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import '../styles/App.css';
 
+import Nav from "./Nav"
+
 class App extends Component {
   state = {
     username: '',
@@ -72,34 +74,41 @@ class App extends Component {
 
   render() {
     const { token, user, username, password } = this.state
-    return !token ? (
-      <div className="App">
-        <div className="field">
-          <label className="label">Username</label>
-          <div className="control">
-            <input onChange={this.changeUsername} className="input" type="text" placeholder="Text input" value={username}/>
-          </div>
-        </div>
+    return (
+      <BrowserRouter>
+        <div className="app">
+          <Nav />
+          {!token ? 
+            <div className="app-content container">
+              <div className="field">
+                <label className="label">Username</label>
+                <div className="control">
+                  <input onChange={this.changeUsername} className="input" type="text" placeholder="Text input" value={username}/>
+                </div>
+              </div>
 
-        <div className="field">
-          <label className="label">Password</label>
-          <div className="control">
-            <input onChange={this.changePassword} className="input" type="password" placeholder="Text input" value={password}/>
-          </div>
-        </div>
+              <div className="field">
+                <label className="label">Password</label>
+                <div className="control">
+                  <input onChange={this.changePassword} className="input" type="password" placeholder="Text input" value={password}/>
+                </div>
+              </div>
 
-        <div className="field is-grouped">
-          <div className="control">
-            <button onClick={this.userSignIn} className="button is-link">Submit</button>
-          </div>
-          <div className="control">
-            <button className="button is-text">Cancel</button>
-          </div>
+              <div className="field is-grouped">
+                <div className="control">
+                  <button onClick={this.userSignIn} className="button is-link">Submit</button>
+                </div>
+                <div className="control">
+                  <button className="button is-text">Cancel</button>
+                </div>
+              </div>
+            </div>
+          : 
+            <div className="app-content container">{user.username}</div>
+          }
         </div>
-      </div>
-    ) : (
-      <div>{user.username}</div>
-    )
+      </BrowserRouter>
+      )
   }
 }
 
