@@ -36,5 +36,6 @@
 .nav-logo {
   position: absolute;
   z-index: 1;
-  left: 42%;
+  left: 46%;
+  zoom: 60%;
 }

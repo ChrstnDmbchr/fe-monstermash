@@ -104,7 +104,9 @@ class App extends Component {
               </div>
             </div>
           : 
-            <div className="app-content container">{user.username}</div>
+            <div className="app-content container">
+              {user.username}
+            </div>
           }
         </div>
       </BrowserRouter>
