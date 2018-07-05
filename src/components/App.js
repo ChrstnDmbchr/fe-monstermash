@@ -13,7 +13,7 @@ class App extends Component {
       <BrowserRouter>
         <div className="app">
           <Nav />
-            <div className="app-content container">
+          <div className="app-content container">
             <Switch>
               <Route path="/login" component={Login} />
               <Route path="/logout" component={Logout} />
