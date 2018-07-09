@@ -7,17 +7,34 @@ class Logout extends Component {
     token: localStorage.getItem('monstermash-id')
   };
 
+  logout = () => {
+    localStorage.removeItem('monstermash-id');
+    return this.props.history.push('/login');
+  };
+
+  goBack = () => {
+    return this.props.history.goBack();
+  };
+
   componentDidMount () {
     const { token } = this.state
     if (!token) {
-      this.props.history.push('/login')
+      return this.props.history.push('/login');
     };
   };
 
   render() {
     return (
       <div>
-        Are you sure?
+        <h1 className="title">Logout from Monster Mash?</h1>
+        <div className="field is-grouped is-grouped-centered">
+          <div className="control">
+            <button onClick={this.logout} className="button nav-button">Logout</button>
+          </div>
+          <div className="control">
+            <button onClick={this.goBack} className="button is-text">Go Back</button>
+          </div>
+        </div>
       </div>
     )
   };
