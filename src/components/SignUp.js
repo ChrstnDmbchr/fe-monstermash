@@ -93,6 +93,7 @@ class Logout extends Component {
             <button onClick={this.goBack} className="button is-text">Cancel</button>
           </div>
         </div>
+        <br />
 
         {userExists ?         
           <div className="notification is-danger">
