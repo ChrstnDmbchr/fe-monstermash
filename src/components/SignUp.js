@@ -90,7 +90,7 @@ class Logout extends Component {
             <button onClick={this.userSignUp} className="button nav-button">Submit</button>
           </div>
           <div className="control">
-            <button onClick={this.goBack} className="button is-text">Cancel</button>
+            <button onClick={this.goBack} className="button is-text">Go Back</button>
           </div>
         </div>
         <br />
