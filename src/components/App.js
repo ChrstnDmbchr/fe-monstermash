@@ -6,6 +6,8 @@ import Nav from "./Nav";
 import Logout from "./Logout";
 import Login from "./Login";
 import Canvas from "./Canvas";
+import SignUp from "./SignUp";
+import Homepage from "./Homepage"
 
 class App extends Component {
   render() {
@@ -15,8 +17,10 @@ class App extends Component {
           <Nav />
           <div className="app-content container">
             <Switch>
+              <Route exact path="/" component={Homepage} />
               <Route path="/login" component={Login} />
               <Route path="/logout" component={Logout} />
+              <Route path="/signup" component={SignUp} />
               <Route path="/monstermash/:stage" component={Canvas} />
             </Switch>
           </div>

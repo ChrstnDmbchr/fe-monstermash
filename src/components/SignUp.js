@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 import '../styles/Login.css';
 
 
@@ -8,8 +7,7 @@ class Logout extends Component {
     username: '',
     password: '',
     token: localStorage.getItem('monstermash-id'),
-    user: {},
-    authFailed: false,
+    userExists: false
   }
 
   changeUsername = e => {
@@ -20,25 +18,27 @@ class Logout extends Component {
     this.setState({ password: e.target.value })
   };
 
-  userSignIn = () => {
-    fetch(`http://localhost:3000/api/user/signin`,{
+  userSignUp = () => {
+    if (!this.state.username.length || !this.state.password.length) return;
+
+    fetch(`http://localhost:3000/api/user/signup`,{
       method: 'POST',
       body: JSON.stringify({ username: this.state.username, password: this.state.password }),
       headers: {"Content-type": "application/json"}
     })
     .then(res=> {
-      if (res.status === 401 || res.status === 404) {
+      if (res.status === 400) {
         return this.setState({ 
           username: '',
           password: '',
-          authFailed: true,
+          userExists: true,
         });
-      }
+      };
+
       return res.json();
     })
     .then(result => {
       if (!result) return;
-
       this.setState({ 
         token: result.token,
         username: '',
@@ -50,9 +50,13 @@ class Logout extends Component {
     .catch(err => console.log(err));
   };
 
+  goBack = () => {
+    return this.props.history.goBack();
+  };
+
   closeError = () => {
-    return this.setState({
-      authFailed: false
+    this.setState({
+      userExists: false
     });
   };
 
@@ -63,19 +67,19 @@ class Logout extends Component {
   }
 
   render() {
-    const { username, password, authFailed } = this.state
+    const { username, password, userExists } = this.state
     return (
       <div className="container app-login">
-        <h1 className="title">Login to Monster Mash!</h1>
+        <h1 className="title">Sign up to Monster Mash!</h1>
         <div className="field">
-          <label className="label">Username</label>
+          <label className="label">Please enter a username</label>
           <div className="control">
             <input onChange={this.changeUsername} className="input" type="text" placeholder="Text input" value={username}/>
           </div>
         </div>
 
         <div className="field">
-          <label className="label">Password</label>
+          <label className="label">Please enter a password</label>
           <div className="control">
             <input onChange={this.changePassword} className="input" type="password" placeholder="Text input" value={password}/>
           </div>
@@ -83,21 +87,20 @@ class Logout extends Component {
 
         <div className="field is-grouped is-grouped-centered">
           <div className="control">
-            <button onClick={this.userSignIn} className="button nav-button">Submit</button>
+            <button onClick={this.userSignUp} className="button nav-button">Submit</button>
           </div>
           <div className="control">
-            <button className="button is-text">Cancel</button>
+            <button onClick={this.goBack} className="button is-text">Cancel</button>
           </div>
         </div>
 
-        <h2>Don't have an account? Sign Up <Link to="/signup">Here!</Link></h2>
-
-        {authFailed ?         
+        {userExists ?         
           <div className="notification is-danger">
             <button onClick={this.closeError} className="delete"></button>
-            <strong>Authentication failed, please try again.</strong>
+            <strong>Username already exists, please enter another</strong>
           </div> :
           <div />}
+
       </div>
     )
   };
