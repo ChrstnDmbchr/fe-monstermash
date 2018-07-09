@@ -62,9 +62,9 @@ class Logout extends Component {
 
   componentDidMount () {
     if (this.state.token) {
-      this.props.history.push('/')
-    }
-  }
+      this.props.history.push('/');
+    };
+  };
 
   render() {
     const { username, password, userExists } = this.state

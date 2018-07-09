@@ -85,12 +85,10 @@ class Logout extends Component {
           <div className="control">
             <button onClick={this.userSignIn} className="button nav-button">Submit</button>
           </div>
-          <div className="control">
-            <button className="button is-text">Cancel</button>
-          </div>
         </div>
 
         <h2>Don't have an account? Sign Up <Link to="/signup">Here!</Link></h2>
+        <br />
 
         {authFailed ?         
           <div className="notification is-danger">
