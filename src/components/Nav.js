@@ -15,7 +15,7 @@ class Nav extends Component {
           <Link className="button nav-button" to={'/monstermash/new'}>New Monster Mash!</Link>
         </div>
         <div className="nav-close-logo-right nav-item">
-          <Link className="button nav-button" to={'/monstermash/contine'}>Continue Monster Mash!</Link>
+          <Link className="button nav-button" to={'/monstermash/continue'}>Continue Monster Mash!</Link>
         </div>
         <div className="nav-item">
           <Link className="button nav-button" to={'/logout'}>Logout</Link>
