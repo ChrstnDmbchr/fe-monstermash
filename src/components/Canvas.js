@@ -158,7 +158,7 @@ class Canvas extends Component {
       <div className="canvas">
         <div className="canvas-title">
           <h1 className="title">Time to start a new Monster Mash!</h1>
-          <h1 className="subtitle">you are drawing the {!currMash ? 'head!' : currMash.phase + '!'}</h1>
+          <h1 className="subtitle">you are drawing the {!currMash.phase ? 'head!' : currMash.phase + '!'}</h1>
           <h1 className="subtitle">connect your body part to the marker on the canvas to all the part line up!</h1>
         </div>
         <canvas ref="canvas" className="canvas-area" width="800" height="400" onMouseDown={this.engage} onMouseUp={this.disengage}><strong>Your browser does not cupport canvas</strong></canvas>
