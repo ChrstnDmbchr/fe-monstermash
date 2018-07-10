@@ -62,21 +62,21 @@ class Canvas extends Component {
     });
   };
 
-  loadCanvas = (dataUrl) => {
+  loadCanvas = () => {
     const canvas = this.refs.canvas;
     const context = canvas.getContext('2d');
 
-    let imageObj = new Image();
-    imageObj.onload = () => {
-      context.drawImage(imageObj, 0, 0);
+    let image = new Image();
+    image.onload = () => {
+      context.drawImage(image, 0, 0);
     };
-    imageObj.src = dataUrl;
+    image.src = monsterPart.head;
   };
 
   clearCanvas = () => {
-    console.log(this.refs.canvas.toDataURL())
     this.refs.canvas.width = this.refs.canvas.width;
     this.refs.canvas.getContext('2d').lineWidth = this.state.radius * 2;
+    this.loadCanvas(monsterPart.head)
   };
 
   componentDidMount () {
@@ -93,22 +93,38 @@ class Canvas extends Component {
     canvas.addEventListener('mousemove', this.draw); 
 
     // invoke function with the dataURL from db to load canvas with placeholder
-    this.loadCanvas(monsterPart.body);
+    this.loadCanvas(monsterPart.head);
   };
 
   render() {
+    const { currMash } = this.state
     return (
       <div className="canvas">
+        <div className="canvas-title">
+          <h1 className="title">Time to start a new Monster Mash!</h1>
+          <h1 className="subtitle">you are drawing the {!currMash ? 'head!' : currMash + '!'}</h1>
+          <h1 className="subtitle">connect your body part to the marker on the canvas to all the part line up!</h1>
+        </div>
         <canvas ref="canvas" className="canvas-area" width="800" height="400" onMouseDown={this.engage} onMouseUp={this.disengage}><strong>Your browser does not cupport canvas</strong></canvas>
-        <div>
-          <label htmlFor="rad">Set line width: </label>
-          <input type="number" ref="rad" name="rad" defaultValue={this.state.radius} min="1" max="10" onChange={this.setRadius}/>
+        <div className="canvas-input">
+          <div>
+            <label className="subtitle" htmlFor="rad">Set line width: </label>
+            <input className="canvas-rad input is-rounded" type="number" ref="rad" name="rad" defaultValue={this.state.radius} min="1" max="10" onChange={this.setRadius}/>
+          </div>
+          <div>
+            <label className="subtitle" htmlFor="colorSelect">Select your color: </label>
+            <input className="canvas-rad input is-rounded" ref="colorSelect" name="colorSelect" type="color" onChange={this.setColor}/>
+          </div>
         </div>
-        <div>
-          <label htmlFor="colorSelect">Select your color: </label>
-          <input ref="colorSelect" name="colorSelect" type="color" onChange={this.setColor}/>
+        <div className="field is-grouped is-grouped-centered">
+          <div className="control">
+            <button onClick={this.userSignUp} className="button nav-button">Submit Mash!</button>
+          </div>
+          <div className="control">
+            <button className="button" onClick={this.clearCanvas}>Clear Canvas</button>
+          </div>
         </div>
-        <button onClick={this.clearCanvas}>Clear</button>
+        
       </div>
     );
   };
