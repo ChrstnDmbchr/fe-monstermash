@@ -245,7 +245,7 @@ class Canvas extends Component {
     return noAvailableMash ? (
       <div>
         <h1 className="title">There are currently no available Monster Mashes you can contribute to :(</h1>
-        <h2 className="subtitle">why don't you try and start a new mash?</h2>
+        <h2 className="subtitle">why don't you try and start a new Monster Mash?</h2>
         <canvas ref="canvas" />
       </div>
       ) : (
