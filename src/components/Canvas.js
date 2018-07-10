@@ -281,7 +281,7 @@ class Canvas extends Component {
         <div className={`modal ${isModalActive ? 'is-active' : ''}`}>
           <div className="modal-background"></div>
             <div className="modal-content box">
-              <p>Mash successfully Posted!</p>
+              <p>Your Monster Mash has been successfully posted!</p>
               <br />
               <div className="field is-grouped is-grouped-centered">
                 <div className="control">
