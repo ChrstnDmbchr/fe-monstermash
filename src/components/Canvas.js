@@ -10,6 +10,8 @@ class Canvas extends Component {
     color: "black",
     token: localStorage.getItem('monstermash-id'),
     currMash: {},
+    isModalActive: false,
+    noAvailableMash: false,
   };
 
   setRadius = (e) => {
@@ -77,16 +79,80 @@ class Canvas extends Component {
   clearCanvas = (part) => {
     this.refs.canvas.width = this.refs.canvas.width;
     this.refs.canvas.getContext('2d').lineWidth = this.state.radius * 2;
-    if (!part) {
+    if (part === 'new') {
       this.loadCanvas(monsterPart.head)
     } else {
       this.loadCanvas(monsterPart[part])
     }
   };
 
+  toggleModal = () => {
+    this.setState({
+      isModalActive: false,
+      noAvailableMash: false,
+      currMash: {},
+    }, () => {
+      this.props.history.push('/');
+    });
+  };
+
+  postNewMash = () => {
+    const { token } = this.state;
+    const canvas = this.refs.canvas;
+    let canvasData = canvas.toDataURL();
+
+    fetch('http://localhost:3000/api/mash/newmash', {
+      method: 'POST',
+      headers: {
+        "Authorisation": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({imageData: canvasData})
+    })
+    .then(res => {
+      return res.json();
+    })
+    .then(mashRes => {
+      this.setState({
+        isModalActive: true
+      });
+    })
+    .catch(err => console.log(err));
+  }
+
+  postContinueMash = () => {
+    const { token, currMash } = this.state;
+    if (!currMash) return;
+
+    const canvas = this.refs.canvas;
+    const canvasData = canvas.toDataURL();
+   
+    fetch(`http://localhost:3000/api/mash/continuemash/${currMash._id}`, {
+      method: 'POST',
+      headers: {
+        "Authorisation": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        imageData: canvasData,
+        currPhase: currMash.phase
+      })
+    })
+    .then(res => {
+      return res.json();
+    })
+    .then(mashRes => {
+      this.setState({
+        isModalActive: true
+      });
+    })
+    .catch(err => console.log(err));
+  };
+
   componentWillReceiveProps (newProps) {
     this.setState({
-      currMash: null
+      currMash: {},
+      noAvailableMash: false,
     }, () => {
       this.clearCanvas(newProps.match.params.stage)
     });
@@ -103,15 +169,24 @@ class Canvas extends Component {
         headers: {"Authorisation": `Bearer ${token}`}
       })
       .then(res => {
+        if (res.status === 404) {
+          this.setState({
+            noAvailableMash: true
+          });
+        };
         return res.json();
       })
       .then(continueMash => {
-        const { mash } = continueMash
-        this.setState({
-          currMash: mash
-        }, () => {
-          this.loadCanvas(monsterPart[mash.phase]);
-        });
+        if (continueMash.error) {
+          return;
+        } else {
+          const { mash } = continueMash
+          this.setState({
+            currMash: mash
+          }, () => {
+            this.loadCanvas(monsterPart[mash.phase]);
+          });
+        };
       })
       .catch(err => console.log(err))
     } else {
@@ -126,6 +201,10 @@ class Canvas extends Component {
       this.props.history.push('/login');
     };
 
+    this.setState({
+      noAvailableMash: false
+    });
+
     const canvas = this.refs.canvas;
     const context = canvas.getContext('2d');
     context.lineWidth = radius * 2;
@@ -136,25 +215,40 @@ class Canvas extends Component {
         headers: {"Authorisation": `Bearer ${token}`}
       })
       .then(res => {
+        if (res.status === 404) {
+          this.setState({
+            noAvailableMash: true
+          });
+        };
         return res.json();
       })
       .then(continueMash => {
-        const { mash } = continueMash
-        this.setState({
-          currMash: mash
-        }, () => {
-          this.loadCanvas(monsterPart[mash.phase]);
-        });
+        if (continueMash.error) {
+          return;
+        } else {
+          const { mash } = continueMash
+          this.setState({
+            currMash: mash
+          }, () => {
+            this.loadCanvas(monsterPart[mash.phase]);
+          });
+        };
       })
       .catch(err => console.log(err))
     } else {
       this.loadCanvas(monsterPart.head);
-    }
+    };
   };
 
   render() {
-    const { currMash } = this.state
-    return (
+    const { currMash, isModalActive, noAvailableMash } = this.state
+    return noAvailableMash ? (
+      <div>
+        <h1 className="title">There are currently no available Monster Mashes you can contribute to :(</h1>
+        <h2 className="subtitle">why don't you try and start a new mash?</h2>
+        <canvas ref="canvas" />
+      </div>
+      ) : (
       <div className="canvas">
         <div className="canvas-title">
           <h1 className="title">Time to start a new Monster Mash!</h1>
@@ -174,14 +268,29 @@ class Canvas extends Component {
         </div>
         <div className="field is-grouped is-grouped-centered">
           <div className="control">
-            <button onClick={this.userSignUp} className="button nav-button">Submit Mash!</button>
+            <button onClick={!currMash || !currMash.phase ? this.postNewMash : this.postContinueMash} className="button nav-button">Submit Mash!</button>
           </div>
           <div className="control">
-            <button className="button" onClick={() => !currMash ? this.clearCanvas : this.clearCanvas(currMash.phase)}>Clear Canvas</button>
+            <button className="button" onClick={() => !currMash || !currMash.phase ? this.clearCanvas() : this.clearCanvas(currMash.phase)}>Clear Canvas</button>
           </div>
         </div>
         
-      </div>
+
+
+
+        <div className={`modal ${isModalActive ? 'is-active' : ''}`}>
+          <div className="modal-background"></div>
+            <div className="modal-content box">
+              <p>Mash successfully Posted!</p>
+              <br />
+              <div className="field is-grouped is-grouped-centered">
+                <div className="control">
+                    <button onClick={this.toggleModal} className="button nav-button">Go to gallery</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
     );
   };
 };
