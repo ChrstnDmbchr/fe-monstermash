@@ -92,7 +92,7 @@ class Canvas extends Component {
       noAvailableMash: false,
       currMash: {},
     }, () => {
-      this.props.history.push('/');
+      this.props.history.push('/gallery');
     });
   };
 
@@ -166,7 +166,7 @@ class Canvas extends Component {
     const { token } = this.state;
 
     if (!token) {
-      this.props.history.push('/login');
+      return this.props.history.push('/login');
     };
 
     if (newProps.match.params.stage === 'continue') {
@@ -203,7 +203,7 @@ class Canvas extends Component {
     const { token, radius } = this.state;
 
     if (!token) {
-      this.props.history.push('/login');
+      return this.props.history.push('/login');
     };
 
     this.setState({
