@@ -246,7 +246,7 @@ class Canvas extends Component {
   };
 
   render() {
-    const { currMash, isModalActive, noAvailableMash, radius, color } = this.state
+    const { currMash, isModalActive, noAvailableMash, radius, color } = this.state;
     return noAvailableMash ? (
       <div>
         <h1 className="title">There are currently no available Monster Mashes you can contribute to :(</h1>

@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import '../styles/Gallery.css';
 
+import Mash from "./Mash";
+
 class Gallery extends Component {
   state = {
     token: localStorage.getItem('monstermash-id'),
-    user: {}
+    user: {},
+    mashes: [],
   }
 
   componentDidMount () {
@@ -25,10 +28,22 @@ class Gallery extends Component {
       });
     })
     .catch(err => console.log(err));
+
+    fetch('http://localhost:3000/api/mash/all')
+    .then(res => {
+      return res.json();
+    })
+    .then(allMashes => {
+      const { mashes } = allMashes
+      this.setState({
+        mashes
+      })
+    })
+    .catch(err => console.log(err))
   };
 
   render() {
-    const { user } = this.state;
+    const { user, mashes } = this.state;
     return (
       <div className="gallery">
         <h1 className="title">Gallery</h1>
@@ -42,15 +57,9 @@ class Gallery extends Component {
           </div>
         </div>
         <div className="gallery-area">
-          <h1>h1</h1>
-          <h1>h1</h1>
-          <h1>h1</h1>
-          <h1>h1</h1>
-          <h1>h1</h1>
-          <h1>h1</h1>
-          <h1>h1</h1>
-          <h1>h1</h1>
-          <h1>h1</h1>
+          {mashes.map(mash => {
+            return <Mash key={mash._id} mash={mash} />
+          })}
         </div>
       </div>
     )
