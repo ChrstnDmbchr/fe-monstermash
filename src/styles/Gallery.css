@@ -1,0 +1,5 @@
+.gallery-area { 
+  margin-top: 100px;
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+}
