@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../styles/Homepage.css';
 
-class App extends Component {
+class Homepage extends Component {
   state = {
     token: localStorage.getItem('monstermash-id'),
     user: {}
@@ -37,4 +37,4 @@ class App extends Component {
   };
 };
 
-export default App;
+export default Homepage;
