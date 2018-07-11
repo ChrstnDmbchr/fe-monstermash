@@ -7,7 +7,7 @@ class Canvas extends Component {
   state = {
     radius: 1,
     dragging: false,
-    color: "black",
+    color: '#000000',
     token: localStorage.getItem('monstermash-id'),
     currMash: {},
     isModalActive: false,
@@ -79,7 +79,7 @@ class Canvas extends Component {
   clearCanvas = (part) => {
     this.refs.canvas.width = this.refs.canvas.width;
     this.refs.canvas.getContext('2d').lineWidth = this.state.radius * 2;
-    if (part === 'new') {
+    if (!part) {
       this.loadCanvas(monsterPart.head)
     } else {
       this.loadCanvas(monsterPart[part])
@@ -153,16 +153,21 @@ class Canvas extends Component {
     this.setState({
       currMash: {},
       noAvailableMash: false,
+      radius: 1,
+      color: '#000000'
     }, () => {
-      this.clearCanvas(newProps.match.params.stage)
+      const canvas = this.refs.canvas;
+      const context = canvas.getContext('2d');
+      context.lineWidth = this.state.radius * 2;
+      this.refs.canvas.addEventListener('mousemove', this.draw); 
+      this.clearCanvas(this.state.currMash.phase)
     });
 
-    const { token, radius } = this.state;
+    const { token } = this.state;
 
-    const canvas = this.refs.canvas;
-    const context = canvas.getContext('2d');
-    context.lineWidth = radius * 2;
-    canvas.addEventListener('mousemove', this.draw); 
+    if (!token) {
+      this.props.history.push('/login');
+    };
 
     if (newProps.match.params.stage === 'continue') {
       fetch('http://localhost:3000/api/mash/continuemash', {
@@ -184,13 +189,13 @@ class Canvas extends Component {
           this.setState({
             currMash: mash
           }, () => {
-            this.loadCanvas(monsterPart[mash.phase]);
+            this.clearCanvas(mash.phase)
           });
         };
       })
       .catch(err => console.log(err))
     } else {
-      this.loadCanvas(monsterPart.head);
+      this.clearCanvas()
     };
   };
 
@@ -241,7 +246,7 @@ class Canvas extends Component {
   };
 
   render() {
-    const { currMash, isModalActive, noAvailableMash } = this.state
+    const { currMash, isModalActive, noAvailableMash, radius, color } = this.state
     return noAvailableMash ? (
       <div>
         <h1 className="title">There are currently no available Monster Mashes you can contribute to :(</h1>
@@ -259,11 +264,11 @@ class Canvas extends Component {
         <div className="canvas-input">
           <div>
             <label className="subtitle" htmlFor="rad">Set line width: </label>
-            <input className="canvas-rad input is-rounded" type="number" ref="rad" name="rad" defaultValue={this.state.radius} min="1" max="10" onChange={this.setRadius}/>
+            <input className="canvas-rad input is-rounded" type="number" ref="rad" name="rad" defaultValue={radius} min="1" max="10" onChange={this.setRadius}/>
           </div>
           <div>
             <label className="subtitle" htmlFor="colorSelect">Select your color: </label>
-            <input className="canvas-rad input is-rounded" ref="colorSelect" name="colorSelect" type="color" onChange={this.setColor}/>
+            <input className="canvas-rad input is-rounded" ref="colorSelect" name="colorSelect" type="color" onChange={this.setColor} defaultValue={color}/>
           </div>
         </div>
         <div className="field is-grouped is-grouped-centered">
