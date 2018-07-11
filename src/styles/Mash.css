@@ -1,5 +1,5 @@
 .mash { 
-  border: 1px #46aa25 solid;
+  border: 3px #46aa25 solid;
   border-radius: 5px;
   margin: 10px
 }
@@ -10,4 +10,8 @@
 
 .mash-image { 
   height: 300px;
+}
+
+.mash-loading { 
+  padding: 10px;
 }

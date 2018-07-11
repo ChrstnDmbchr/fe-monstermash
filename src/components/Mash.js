@@ -42,7 +42,7 @@ class Mash extends Component {
     return (
       <div className="mash">
         <canvas ref="canvas" className="gallery-mash" width="800" height="1200" />
-        <img className="mash-image" src={finalImage} alt="mash" />
+        {!finalImage ? <h1 className="mash-loading">Loading Monster Mash!</h1> : <img className="mash-image" src={finalImage} alt="mash" />}
       </div>
     );
   };
