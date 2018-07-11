@@ -101,6 +101,8 @@ class Canvas extends Component {
     const canvas = this.refs.canvas;
     let canvasData = canvas.toDataURL();
 
+    if (monsterPart.head === canvasData) return;
+
     fetch('http://localhost:3000/api/mash/newmash', {
       method: 'POST',
       headers: {
@@ -126,6 +128,7 @@ class Canvas extends Component {
 
     const canvas = this.refs.canvas;
     const canvasData = canvas.toDataURL();
+    if (monsterPart[currMash.phase] === canvasData) return;
    
     fetch(`http://localhost:3000/api/mash/continuemash/${currMash._id}`, {
       method: 'POST',
