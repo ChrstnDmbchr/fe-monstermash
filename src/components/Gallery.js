@@ -8,7 +8,20 @@ class Gallery extends Component {
     token: localStorage.getItem('monstermash-id'),
     user: {},
     mashes: [],
+    galleryView: 'user',
   }
+
+  galleryAll = () => {
+    this.setState({
+      galleryView: 'all'
+    });
+  };
+
+  galleryUser = () => {
+    this.setState({
+      galleryView: 'user'
+    });
+  };
 
   componentDidMount () {
     const { token } = this.state
@@ -43,23 +56,30 @@ class Gallery extends Component {
   };
 
   render() {
-    const { user, mashes } = this.state;
+    const { user, mashes, galleryView } = this.state;
     return (
       <div className="gallery">
         <h1 className="title">Gallery</h1>
-        <h2 className="subtitle">So {user.username}, Let's see what you've made!</h2>
+        <h2 className="subtitle">{galleryView === 'user' ? `So ${user.username}, Let's see what you've helped to create!` : 'Monsters from around the globe!'}</h2>
         <div className="field is-grouped is-grouped-centered">
           <div className="control">
-            <button onClick={this.userSignUp} className="button nav-button">Your Monster Mashes!</button>
+            <button onClick={this.galleryUser} className="button nav-button">Your Monster Mashes!</button>
           </div>
           <div className="control">
-            <button onClick={this.goBack} className="button nav-button">Global Gallery</button>
+            <button onClick={this.galleryAll} className="button nav-button">Global Gallery</button>
           </div>
         </div>
         <div className="gallery-area">
-          {mashes.map(mash => {
-            return <Mash key={mash._id} mash={mash} />
-          })}
+          {galleryView === 'user' ? 
+            mashes.filter(mash => {
+              return mash.users.indexOf(user.id) !== -1
+            }).map(mash => {
+              return <Mash key={mash._id} mash={mash} />
+            })
+          :
+            mashes.map(mash => {
+              return <Mash key={mash._id} mash={mash} />
+            })}
         </div>
       </div>
     )
