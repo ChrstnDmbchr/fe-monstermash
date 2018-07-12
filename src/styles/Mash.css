@@ -1,0 +1,17 @@
+.mash { 
+  border: 3px #46aa25 solid;
+  border-radius: 5px;
+  margin: 10px
+}
+
+.gallery-mash { 
+  display: none;
+}
+
+.mash-image { 
+  height: 300px;
+}
+
+.mash-loading { 
+  padding: 10px;
+}
