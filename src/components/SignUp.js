@@ -74,14 +74,14 @@ class Logout extends Component {
         <div className="field">
           <label className="label">Please enter a username</label>
           <div className="control">
-            <input onChange={this.changeUsername} className="input" type="text" placeholder="Text input" value={username}/>
+            <input onChange={this.changeUsername} className="input" type="text" value={username}/>
           </div>
         </div>
 
         <div className="field">
           <label className="label">Please enter a password</label>
           <div className="control">
-            <input onChange={this.changePassword} className="input" type="password" placeholder="Text input" value={password}/>
+            <input onChange={this.changePassword} className="input" type="password" value={password}/>
           </div>
         </div>
 
