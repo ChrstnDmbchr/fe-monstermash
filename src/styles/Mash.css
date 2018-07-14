@@ -15,3 +15,7 @@
 .mash-loading { 
   padding: 10px;
 }
+
+.mash-full {
+  height: 600px;
+}

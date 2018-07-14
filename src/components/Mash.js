@@ -3,8 +3,15 @@ import '../styles/Mash.css';
 
 class Mash extends Component {
   state = {
-    finalImage: ''
+    finalImage: '',
+    isModalActive: false,
   }
+
+  toggleModal = () => {
+    this.setState({
+      isModalActive: !this.state.isModalActive
+    });
+  };
 
   componentDidMount () {
     const { imageData } = this.props.mash
@@ -38,12 +45,25 @@ class Mash extends Component {
   }
 
   render() {
-    const { finalImage } = this.state
+    const { finalImage, isModalActive } = this.state
     return (
-      <div className="mash">
-        <canvas ref="canvas" className="mash-canvas" width="800" height="1200" />
-        {!finalImage ? <h1 className="mash-loading">Loading Monster Mash!</h1> : <img className="mash-image" src={finalImage} alt="mash" />}
+      <div>
+        <div className="mash">
+          <canvas ref="canvas" className="mash-canvas" width="800" height="1200" />
+          {!finalImage ? <h1 className="mash-loading">Loading Monster Mash!</h1> : <img className="mash-image" onClick={this.toggleModal} src={finalImage} alt="mash" />}
+        </div>
+
+        <div className={`modal ${isModalActive ? 'is-active' : ''}`}>
+          <div className="modal-background" onClick={this.toggleModal}></div>
+          <div className="modal-content">
+             <div className="box">
+                <img src={finalImage} className="mash-full" alt="mash" />
+             </div>
+          </div>
+          <button className="modal-close is-large" onClick={this.toggleModal} aria-label="close"></button>
+        </div>
       </div>
+
     );
   };
 };
