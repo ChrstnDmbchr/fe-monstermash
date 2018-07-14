@@ -41,7 +41,7 @@ class Mash extends Component {
     const { finalImage } = this.state
     return (
       <div className="mash">
-        <canvas ref="canvas" className="gallery-mash" width="800" height="1200" />
+        <canvas ref="canvas" className="mash-canvas" width="800" height="1200" />
         {!finalImage ? <h1 className="mash-loading">Loading Monster Mash!</h1> : <img className="mash-image" src={finalImage} alt="mash" />}
       </div>
     );
