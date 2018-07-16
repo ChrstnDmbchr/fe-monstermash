@@ -34,7 +34,6 @@ class Logout extends Component {
       return res.json();
     })
     .then(result => {
-      console.log(result)
       if (!result) return;
       this.setState({ 
         token: result.token,
