@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import '../styles/Login.css';
 
+import api from "../lib/api";
 
 class Logout extends Component {
   state = {
@@ -21,11 +22,7 @@ class Logout extends Component {
   };
 
   userSignIn = () => {
-    fetch(`http://localhost:3000/api/user/signin`,{
-      method: 'POST',
-      body: JSON.stringify({ username: this.state.username, password: this.state.password }),
-      headers: {"Content-type": "application/json"}
-    })
+    api.userSignIn(this.state.username, this.state.password)
     .then(res=> {
       if (res.status === 401 || res.status === 404) {
         return this.setState({ 
