@@ -31,11 +31,10 @@ class Logout extends Component {
           userExists: true,
         });
       };
-
+      console.log(res)
       return res.json();
     })
     .then(result => {
-      console.log(result)
       if (!result) return;
       this.setState({ 
         token: result.token,
