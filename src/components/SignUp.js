@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../styles/Login.css';
 
+import api from "../lib/api";
 
 class Logout extends Component {
   state = {
@@ -21,11 +22,7 @@ class Logout extends Component {
   userSignUp = () => {
     if (!this.state.username.length || !this.state.password.length) return;
 
-    fetch(`http://localhost:3000/api/user/signup`,{
-      method: 'POST',
-      body: JSON.stringify({ username: this.state.username, password: this.state.password }),
-      headers: {"Content-type": "application/json"}
-    })
+    api.userSignUp(this.state.username, this.state.password)
     .then(res=> {
       if (res.status === 400) {
         return this.setState({ 

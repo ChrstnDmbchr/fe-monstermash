@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import '../styles/Homepage.css';
 
+import api from "../lib/api";
+
 class Homepage extends Component {
   state = {
     token: localStorage.getItem('monstermash-id'),
@@ -13,12 +15,7 @@ class Homepage extends Component {
       return this.props.history.push('/login');
     };
 
-    fetch(`http://localhost:3000/api/user`, {
-      headers: {"Authorisation": `Bearer ${token}`}
-    })
-    .then(res => {
-      return res.json();
-    })
+    api.getUser(token)
     .then(user =>{
       this.setState({
         user

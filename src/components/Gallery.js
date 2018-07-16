@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../styles/Gallery.css';
 
+import api from "../lib/api"
 import Mash from "./Mash";
 
 class Gallery extends Component {
@@ -29,12 +30,7 @@ class Gallery extends Component {
       return this.props.history.push('/login');
     };
 
-    fetch(`http://localhost:3000/api/user`, {
-      headers: {"Authorisation": `Bearer ${token}`}
-    })
-    .then(res => {
-      return res.json();
-    })
+    api.getUser(token)
     .then(user =>{
       this.setState({
         user
@@ -42,10 +38,7 @@ class Gallery extends Component {
     })
     .catch(err => console.log(err));
 
-    fetch('http://localhost:3000/api/mash/all')
-    .then(res => {
-      return res.json();
-    })
+    api.getAllMashes()
     .then(allMashes => {
       const { mashes } = allMashes
       this.setState({

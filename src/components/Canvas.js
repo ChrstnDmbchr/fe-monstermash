@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import "../styles/Canvas.css"
+import "../styles/Canvas.css";
 
-import monsterPart from "../lib/monsterPart"
+import api from "../lib/api";
+import monsterPart from "../lib/monsterPart";
 
 class Canvas extends Component {
   state = {
@@ -103,17 +104,7 @@ class Canvas extends Component {
 
     if (monsterPart.head === canvasData) return;
 
-    fetch('http://localhost:3000/api/mash/newmash', {
-      method: 'POST',
-      headers: {
-        "Authorisation": `Bearer ${token}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({imageData: canvasData})
-    })
-    .then(res => {
-      return res.json();
-    })
+    api.postNewMash(token, canvasData)
     .then(mashRes => {
       this.setState({
         isModalActive: true
@@ -130,20 +121,7 @@ class Canvas extends Component {
     const canvasData = canvas.toDataURL();
     if (monsterPart[currMash.phase] === canvasData) return;
    
-    fetch(`http://localhost:3000/api/mash/continuemash/${currMash._id}`, {
-      method: 'POST',
-      headers: {
-        "Authorisation": `Bearer ${token}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        imageData: canvasData,
-        currPhase: currMash.phase
-      })
-    })
-    .then(res => {
-      return res.json();
-    })
+    api.postContinueMash(currMash._id, token, canvasData, currMash.phase)
     .then(mashRes => {
       this.setState({
         isModalActive: true
@@ -173,9 +151,7 @@ class Canvas extends Component {
     };
 
     if (newProps.match.params.stage === 'continue') {
-      fetch('http://localhost:3000/api/mash/continuemash', {
-        headers: {"Authorisation": `Bearer ${token}`}
-      })
+      api.getContinueMash(token)
       .then(res => {
         if (res.status === 404) {
           this.setState({
@@ -219,9 +195,7 @@ class Canvas extends Component {
     canvas.addEventListener('mousemove', this.draw); 
 
     if (this.props.match.params.stage === 'continue') {
-      fetch('http://localhost:3000/api/mash/continuemash', {
-        headers: {"Authorisation": `Bearer ${token}`}
-      })
+      api.getContinueMash(token)
       .then(res => {
         if (res.status === 404) {
           this.setState({
