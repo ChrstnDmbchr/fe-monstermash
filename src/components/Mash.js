@@ -58,6 +58,8 @@ class Mash extends Component {
           <div className="modal-content">
              <div className="box">
                 <img src={finalImage} className="mash-full" alt="mash" download/>
+                <br />
+                <a href={finalImage} download>Download <i class="fa fa-download" aria-hidden="true"></i></a>
              </div>
           </div>
           <button className="modal-close is-large" onClick={this.toggleModal} aria-label="close"></button>
