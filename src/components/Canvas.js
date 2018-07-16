@@ -260,7 +260,7 @@ class Canvas extends Component {
 
 
 
-        <div className={`modal ${isModalActive ? 'is-active' : ''}`}>
+        <div className={isModalActive ? 'modal is-active' : 'modal'}>
           <div className="modal-background"></div>
             <div className="modal-content box">
               <p>Your Monster Mash has been successfully posted!</p>
