@@ -48,7 +48,7 @@ class Mash extends Component {
     const { finalImage, isModalActive } = this.state
     return (
       <div>
-        <div className="mash">
+        <div className="mash animated flipInY">
           <canvas ref="canvas" className="mash-canvas" width="800" height="1200" />
           {!finalImage ? <h1 className="mash-loading">Loading Monster Mash!</h1> : <img className="mash-image" onClick={this.toggleModal} src={finalImage} alt="mash" />}
         </div>
@@ -57,13 +57,12 @@ class Mash extends Component {
           <div className="modal-background" onClick={this.toggleModal}></div>
           <div className="modal-content">
              <div className="box">
-                <img src={finalImage} className="mash-full" alt="mash" />
+                <img src={finalImage} className="mash-full" alt="mash" download/>
              </div>
           </div>
           <button className="modal-close is-large" onClick={this.toggleModal} aria-label="close"></button>
         </div>
       </div>
-
     );
   };
 };
