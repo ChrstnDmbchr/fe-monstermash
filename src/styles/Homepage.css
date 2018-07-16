@@ -1,0 +1,52 @@
+.title-logo {
+  height: 100px;
+}
+
+.title-text {
+  margin-top: 40px;
+  font-size: 20px;
+}
+
+.title-new {
+  text-align: left;
+  margin-top: 40px;
+}
+
+.title-new-grid { 
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.title-new-grid-img { 
+  height: 200px;
+  margin-left: 100px;
+}
+
+.title-continue {
+  text-align: right;
+  margin-top: 40px;
+}
+
+.title-continue-grid { 
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.title-continue-grid-img { 
+  height: 200px;
+}
+
+.title-gallery { 
+  text-align: left;
+  margin-top: 40px;
+}
+
+.title-gallery-grid { 
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.title-gallery-grid-img { 
+  height: 300px;
+  margin-left: 100px;
+}
