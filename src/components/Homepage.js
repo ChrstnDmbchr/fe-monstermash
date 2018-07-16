@@ -14,11 +14,7 @@ class Homepage extends Component {
     if (!token) {
       return this.props.history.push('/login');
     };
-
-    if (token === undefined) {
-      return this.props.history.push('/login');
-    }
-
+    
     api.getUser(token)
     .then(user =>{
       this.setState({
