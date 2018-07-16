@@ -10,6 +10,8 @@
 .title-new {
   text-align: left;
   margin-top: 40px;
+  border-bottom: 1px solid black;
+  padding-bottom: 40px;
 }
 
 .title-new-grid { 
@@ -25,6 +27,8 @@
 .title-continue {
   text-align: right;
   margin-top: 40px;
+  border-bottom: 1px solid black;
+  padding-bottom: 40px;
 }
 
 .title-continue-grid { 
@@ -49,4 +53,8 @@
 .title-gallery-grid-img { 
   height: 300px;
   margin-left: 100px;
+}
+
+.title-new { 
+  border-bottom: 1px solid black
 }
