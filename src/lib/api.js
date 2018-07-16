@@ -1,5 +1,5 @@
 exports.postNewMash = (token, data) => {
-  return fetch('http://localhost:3000/api/mash/newmash', {
+  return fetch('https://damp-journey-26965.herokuapp.com/api/mash/newmash', {
     method: 'POST',
     headers: {
       "Authorisation": `Bearer ${token}`,
@@ -13,7 +13,7 @@ exports.postNewMash = (token, data) => {
 };
 
 exports.postContinueMash = (id, token, data, phase) => {
-  return fetch(`http://localhost:3000/api/mash/continuemash/${id}`, {
+  return fetch(`https://damp-journey-26965.herokuapp.com/api/mash/continuemash/${id}`, {
     method: 'POST',
     headers: {
       "Authorisation": `Bearer ${token}`,
@@ -30,7 +30,7 @@ exports.postContinueMash = (id, token, data, phase) => {
 };
 
 exports.getUser = (token) => {
-  return fetch(`http://localhost:3000/api/user`, {
+  return fetch(`https://damp-journey-26965.herokuapp.com/api/user`, {
     headers: {"Authorisation": `Bearer ${token}`}
   })
   .then(res => {
@@ -39,20 +39,20 @@ exports.getUser = (token) => {
 };
 
 exports.getAllMashes = () => {
-  return fetch('http://localhost:3000/api/mash/all')
+  return fetch('https://damp-journey-26965.herokuapp.com/api/mash/all')
   .then(res => {
     return res.json();
   })
 };
 
 exports.getContinueMash = (token) => {
-  return fetch('http://localhost:3000/api/mash/continuemash', {
+  return fetch('https://damp-journey-26965.herokuapp.com/api/mash/continuemash', {
     headers: {"Authorisation": `Bearer ${token}`}
   })
 }
 
 exports.userSignIn = (username, password) => {
-  return fetch(`http://localhost:3000/api/user/signin`,{
+  return fetch(`https://damp-journey-26965.herokuapp.com/api/user/signin`,{
     method: 'POST',
     body: JSON.stringify({ username: username, password: password }),
     headers: {"Content-type": "application/json"}
@@ -60,7 +60,7 @@ exports.userSignIn = (username, password) => {
 };
 
 exports.userSignUp = (username, password) => {
-  return fetch(`http://localhost:3000/api/user/signup`,{
+  return fetch(`https://damp-journey-26965.herokuapp.com/api/user/signup`,{
     method: 'POST',
     body: JSON.stringify({ username: username, password: password }),
     headers: {"Content-type": "application/json"}
