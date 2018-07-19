@@ -5,4 +5,4 @@ Front end for my final project at Northcoders. An React app which uses Bulma for
 
 Bootstrapped using `create-react-app`
 
-Now hosted on [Heroku](https://aqueous-springs-80875.herokuapp.com/)
+Now hosted on [Heroku](https://monster-mash-app.herokuapp.com/)
