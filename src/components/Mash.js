@@ -53,7 +53,7 @@ class Mash extends Component {
           {!finalImage ? <h1 className="mash-loading">Loading Monster Mash!</h1> : <img className="mash-image" onClick={this.toggleModal} src={finalImage} alt="mash" />}
         </div>
 
-        <div className={`modal ${isModalActive ? 'is-active' : ''}`}>
+        <div className={isModalActive ? 'modal is-active' : 'modal'}>
           <div className="modal-background" onClick={this.toggleModal}></div>
           <div className="modal-content">
              <div className="box">
