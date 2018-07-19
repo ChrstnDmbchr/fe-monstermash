@@ -20,3 +20,7 @@
   display: grid;
   grid-template-columns: 50% 50%;
 }
+
+.canvas-input-color {
+  margin-left: 150px;
+}
