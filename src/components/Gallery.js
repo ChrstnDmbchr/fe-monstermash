@@ -10,6 +10,7 @@ class Gallery extends Component {
     user: {},
     mashes: [],
     galleryView: 'user',
+    loading: true,
   }
 
   galleryAll = () => {
@@ -42,15 +43,20 @@ class Gallery extends Component {
     .then(allMashes => {
       const { mashes } = allMashes
       this.setState({
-        mashes
+        mashes,
+        loading: false,
       })
     })
     .catch(err => console.log(err))
   };
 
   render() {
-    const { user, mashes, galleryView } = this.state;
-    return (
+    const { user, mashes, galleryView, loading } = this.state;
+    return loading ? (
+      <div>
+        <h1>Loading...</h1>
+      </div>
+    ):(
       <div className="gallery">
         <h1 className="title">Gallery</h1>
         <h2 className="subtitle">{galleryView === 'user' ? `So ${user.username}, Let's see what you've helped to create!` : 'Monsters from around the globe!'}</h2>
