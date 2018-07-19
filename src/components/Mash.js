@@ -41,7 +41,7 @@ class Mash extends Component {
       this.setState({
         finalImage: canvas.toDataURL()
       })
-    }, 10)
+    }, 100)
   }
 
   render() {
