@@ -30,7 +30,7 @@ class Homepage extends Component {
     const { user, loading } = this.state
     return loading ? (
       <div>
-        <h1>Loading...</h1>
+        <h1 className="animated infinite bounce">Loading...</h1>
       </div>
     ):(
       <div>

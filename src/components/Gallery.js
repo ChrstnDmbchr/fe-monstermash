@@ -54,7 +54,7 @@ class Gallery extends Component {
     const { user, mashes, galleryView, loading } = this.state;
     return loading ? (
       <div>
-        <h1>Loading...</h1>
+        <h1 className="animated infinite bounce">Loading...</h1>
       </div>
     ):(
       <div className="gallery">
