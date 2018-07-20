@@ -234,7 +234,7 @@ class Canvas extends Component {
       ) : (
       <div className="canvas">
         <div className="canvas-title">
-          <h1 className="title">Time to draw a Montser part!</h1>
+          <h1 className="title">Time to draw a Monster part!</h1>
           <h1 className="subtitle">you are drawing the {!currMash || !currMash.phase ? 'head!' : currMash.phase + '!'}</h1>
           <h1 className="subtitle">connect your body part to the grey markers on the canvas so all the parts line up!</h1>
         </div>
