@@ -24,7 +24,7 @@ class Homepage extends Component {
       });
     })
     .catch(err => console.log(err))
-  }
+  };
 
   render() {
     const { user, loading } = this.state
